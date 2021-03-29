@@ -1,0 +1,31 @@
+{
+  "name": "nexhome-web-devops-util",
+  "version": "0.0.1",
+  "private": false,
+  "main": "dist/index.js",
+  "license": "MIT",
+  "maintainers": [
+    "bryce"
+  ],
+  "author": "bryce",
+  "keywords": [
+    "frontent devops",
+    "CI/CD"
+  ],
+  "devDependencies": {
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "publish": "tsc && npx nrm use npm && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guygubaby/nexhome-web-devops-util.git"
+  },
+  "files": [
+    "dist/*"
+  ]
+}
