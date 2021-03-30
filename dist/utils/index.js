@@ -37,14 +37,15 @@ exports.runLocally = runLocally;
  * 打包 前端资源 ，并且打包 docker镜像
  * @param dockerImageName 当前环境 的 docker 镜像名称
  * @param dockerFileName 当前环境 的 dockerfile 文件名称
+ * @param packCommand 当前环境 的 打包命令
  * @returns
  */
-const packAndBuildDockerImage = (dockerImageName, dockerFileName) => {
+const packAndBuildDockerImage = (dockerImageName, dockerFileName, packCommand = 'yarn build') => {
     const scripts = `
     yarn config set registry https://registry.npm.taobao.org -g
     yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass -g
 
-    yarn build || exit -1
+    ${packCommand} || exit -1
 
     docker build -t ${dockerImageName} -f ${dockerFileName} . || exit -1
     `;

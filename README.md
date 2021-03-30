@@ -43,7 +43,7 @@ npm i nexhome-web-devops-util -D
     // registry.cn-shanghai.aliyuncs.com/nexhome/yango-web-management-dev:1.0.1-20210326-56fe5cc0
     const dockerImageName = `${DOCKER_IMAGE_PREFIX}${appName}-${env}:${tag}`
     console.log('dockerImageName: ', dockerImageName)
-    await packAndBuildDockerImage(dockerImageName, 'Dockerfile.dev') // 此处应是 dockerfile 的位置
+    await packAndBuildDockerImage(dockerImageName, 'Dockerfile.dev', 'yarn build') // 此处应是 dockerfile 的位置
     await runLocally(28896, dockerImageName, 'yango-web-' + env)
   }
 

@@ -15,9 +15,10 @@ export declare const runLocally: (port: number, dockerImageName: string, dockerC
  * 打包 前端资源 ，并且打包 docker镜像
  * @param dockerImageName 当前环境 的 docker 镜像名称
  * @param dockerFileName 当前环境 的 dockerfile 文件名称
+ * @param packCommand 当前环境 的 打包命令
  * @returns
  */
-export declare const packAndBuildDockerImage: (dockerImageName: string, dockerFileName: string) => Promise<void>;
+export declare const packAndBuildDockerImage: (dockerImageName: string, dockerFileName: string, packCommand?: string) => Promise<void>;
 /**
  * 登录、推送镜像,设置当前 tag 环境变量 DOCKER_TAG_LABEL=’tag-xxxx‘ > env-file
  * @param account docker 账号信息
