@@ -23,8 +23,7 @@
   },
   "scripts": {
     "start": "ts-node src/index.ts",
-    "build": "tsc",
-    "publish": "yarn build && nrm use npm && npm publish"
+    "build": "tsc"
   },
   "dependencies": {
     "qiniu": "^7.3.2"

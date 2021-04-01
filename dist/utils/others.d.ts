@@ -1,4 +1,4 @@
-import { EnvName } from './types';
+import { EnvName, QiniuAccountInfo } from './types';
 /**
  * 生成 '------' 的字符串
  *
@@ -31,3 +31,17 @@ export declare const getEnvName: () => EnvName;
  */
 export declare const runShell: (command: string) => Promise<void>;
 export declare const getTimeStamp: () => string;
+/**
+ * 生成 docker-compose.yml
+ * @param dockerImageName docker 镜像名称
+ * @param deployPort 部署的端口号
+ * @returns {Promise<string>} docker-compose.yml文件内容字符串
+ */
+export declare const generateDockerComposeStr: (dockerImageName: string, deployPort: number) => string;
+/**
+ * 上传到七牛上
+ * @param dockerComposeStr docker-compose文件内容
+ * @param qiniuAccountInfo 七牛的账号信息
+ * @returns
+ */
+export declare const uploadToQiniu: (dockerComposeStr: string, qiniuAccountInfo: QiniuAccountInfo, remoteFileName: string) => Promise<any>;
