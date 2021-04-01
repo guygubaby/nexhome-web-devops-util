@@ -1,6 +1,6 @@
 # nexhome devops util
 
-## brife intro
+## brief intro
 
 这是 `nexhome` 用于 `jenkins(CI/CD)` 打包的工具库
 
@@ -63,7 +63,9 @@ npm i nexhome-web-devops-util -D
 
 ③. set jenkins `config`
 
-![Screen Shot 2021-03-29 at 15.42.16.png](https://i.loli.net/2021/03/29/iZsjUExePGp2QoS.png)
+```bash
+yarn build-for-dev
+```
 
 ### 2. test env
 
@@ -86,7 +88,8 @@ import { dockerAccountInfo } from './constants'
  * 1. set env
  * 2. pack frontend and build docker image
  * 3. push docker image
- * 4. remove env
+ * 4. generate docker-compose.yml and upload to qiniu
+ * 5. remove env
  */
 const run = async () => {
   const env: EnvName = 'test'
@@ -94,10 +97,27 @@ const run = async () => {
   setEnv(env)
   const tag = generateDockerTag(pkg)
   // registry.cn-shanghai.aliyuncs.com/nexhome/yango-web-management-dev:1.0.1-20210326-56fe5cc0
+  
   const dockerImageName = `${DOCKER_IMAGE_PREFIX}${appName}-${env}:${tag}`
   console.log('dockerImageName: ', dockerImageName)
   await packAndBuildDockerImage(dockerImageName, 'Dockerfile.' + env)
   await loginAndPushDockerImage(dockerAccountInfo, dockerImageName)
+
+
+  const deployPort = 8089 // server side deploy port
+  const dockerComposeStr = generateDockerComposeStr(dockerImageName, deployPort);
+
+  const accessKey = process.env.ACCESS_KEY
+  const secretKey = process.env.SECRET_KEY
+  const qiniuAccount: QiniuAccountInfo = {
+    accessKey,
+    secretKey,
+  };
+  const dockerComposeFileName = `docker-compose-${appName}-${env}.yml`
+  await uploadToQiniu(dockerComposeStr, qiniuAccount, dockerComposeFileName);
+
+  console.log("dockerComposeFileName :", dockerComposeFileName)
+
   unSetEnv()
 }
 
@@ -116,25 +136,19 @@ run()
 
 ③. set jenkins `config`
 
-![Screen Shot 2021-03-29 at 15.44.00.png](https://i.loli.net/2021/03/29/Wt9eVQwunyDPUjd.png)
-
-![Screen Shot 2021-03-29 at 15.45.22.png](https://i.loli.net/2021/03/29/AuYbi2QZStkwW6v.png)
+```bash
+yarn build-for-test
+```
 
 ④. server shell script
 
 ```bash
-imageName=$DOCKER_IMAGE_NAME_LABEL
-containerName='xxx-web-test'
+DATE=`date "+%s"`
+dockerComposeFileName='your docker-compose name here.yml'
 
-# login to docker service
-docker login -u username -p password https://fake.rgister.com || exit -1
+curl https://foo.bar.com/${dockerComposeFileName}?time=$DATE -o docker-compose.yml || exit -1
 
-# pull image and run
-docker pull $imageName
-docker stop $containerName
-sleep 2
-docker rm $containerName
-docker run -d --restart unless-stopped --name $containerName -p port:80 $imageName
+docker-compose up -d
 ```
 
-## enjoy it 🙈
+## All done 🙈

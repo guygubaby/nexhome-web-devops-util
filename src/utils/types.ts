@@ -15,3 +15,8 @@ export interface DockerAccountType {
   username: string;
   password: string;
 }
+
+export interface QiniuAccountInfo {
+  accessKey: string;
+  secretKey: string;
+}

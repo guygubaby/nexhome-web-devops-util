@@ -2,6 +2,9 @@
   "name": "nexhome-web-devops-util",
   "version": "0.0.8",
   "private": false,
+  "files": [
+    "dist/*"
+  ],
   "main": "dist/index.js",
   "license": "MIT",
   "maintainers": [
@@ -20,13 +23,14 @@
   },
   "scripts": {
     "start": "ts-node src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "publish": "yarn build && nrm use npm && npm publish"
+  },
+  "dependencies": {
+    "qiniu": "^7.3.2"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/guygubaby/nexhome-web-devops-util.git"
-  },
-  "files": [
-    "dist/*"
-  ]
+  }
 }
