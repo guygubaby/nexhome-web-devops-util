@@ -1,6 +1,6 @@
 {
   "name": "nexhome-web-devops-util",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": false,
   "files": [
     "dist/*"

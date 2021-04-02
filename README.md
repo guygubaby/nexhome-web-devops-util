@@ -143,14 +143,23 @@ yarn build-for-test
 ④. server shell script
 
 ```bash
-DATE=`date "+%s"`
-dockerComposeFileName='your docker-compose name here.yml'
+# 1. login to docker service
+docker login -u ${u} -p ${p} registry.cn-shanghai.aliyuncs.com || exit -1
 
+# 2. stop previous service
 docker-compose stop
 
-curl https://foo.bar.com/${dockerComposeFileName}?time=$DATE -o docker-compose.yml || exit -1
+# 3. set some vars to download latest docker-compose.yml
+dockerComposeUrl='https://some-where.com/docker-compose.yml'
 
+_hash=`date "+%s"`
+
+curl $dockerComposeUrl?_hash=$_hash -o docker-compose.yml || exit -1
+
+# 4. start service
 docker-compose up -d --remove-orphans
+
+# All done :)
 ```
 
 ## All done 🙈
