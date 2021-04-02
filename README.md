@@ -146,9 +146,11 @@ yarn build-for-test
 DATE=`date "+%s"`
 dockerComposeFileName='your docker-compose name here.yml'
 
+docker-compose stop
+
 curl https://foo.bar.com/${dockerComposeFileName}?time=$DATE -o docker-compose.yml || exit -1
 
-docker-compose up -d
+docker-compose up -d --remove-orphans
 ```
 
 ## All done 🙈
