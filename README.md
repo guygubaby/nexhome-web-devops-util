@@ -113,7 +113,7 @@ const run = async () => {
     accessKey,
     secretKey,
   };
-  const dockerComposeFileName = `docker-compose-${appName}-${env}.yml`
+  const dockerComposeFileName = `/${appName}/${env}/docker-compose.yml`
   await uploadToQiniu(dockerComposeStr, qiniuAccount, dockerComposeFileName);
 
   console.log("dockerComposeFileName :", dockerComposeFileName)
