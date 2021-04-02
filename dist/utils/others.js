@@ -86,18 +86,13 @@ exports.getTimeStamp = getTimeStamp;
  */
 const generateDockerComposeStr = (dockerImageName, deployPort) => {
     return `
-  version: '3.7'
+  version: '3'
   services:
-    web:
+    web-service:
       image: ${dockerImageName}
       restart: unless-stopped
-      networks: 
-        - frontent
       ports: 
-        - ${deployPort}:80
-  
-  networks: 
-    frontent:`;
+        - ${deployPort}:80`;
 };
 exports.generateDockerComposeStr = generateDockerComposeStr;
 const deleteFile = async (bucket, remoteFileName, config, mac) => {
