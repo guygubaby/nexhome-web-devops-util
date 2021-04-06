@@ -4,3 +4,4 @@ export * from './utils/types';
 export * from './utils/others';
 
 export { bootstrap } from './bootstrap';
+export { runLocally as runAppLocally } from './run-locally';
