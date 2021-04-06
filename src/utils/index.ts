@@ -95,3 +95,9 @@ export const loginAndPushDockerImage = (
 
   return runShell(scripts);
 };
+
+export const log = (...args: any[]) => {
+  console.log(repeatDash(10));
+  console.log(...args);
+  console.log(repeatDash(10));
+};

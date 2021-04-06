@@ -25,3 +25,4 @@ export declare const packAndBuildDockerImage: (dockerImageName: string, dockerFi
  * @returns
  */
 export declare const loginAndPushDockerImage: (account: DockerAccountType, dockerImageName: string) => Promise<void>;
+export declare const log: (...args: any[]) => void;

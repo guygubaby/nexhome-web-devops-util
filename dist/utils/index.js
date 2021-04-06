@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginAndPushDockerImage = exports.packAndBuildDockerImage = exports.runLocally = exports.generateDockerTag = void 0;
+exports.log = exports.loginAndPushDockerImage = exports.packAndBuildDockerImage = exports.runLocally = exports.generateDockerTag = void 0;
 const constants_1 = require("./constants");
 const others_1 = require("./others");
 /**
@@ -84,3 +84,9 @@ const loginAndPushDockerImage = (account, dockerImageName) => {
     return others_1.runShell(scripts);
 };
 exports.loginAndPushDockerImage = loginAndPushDockerImage;
+const log = (...args) => {
+    console.log(others_1.repeatDash(10));
+    console.log(...args);
+    console.log(others_1.repeatDash(10));
+};
+exports.log = log;
