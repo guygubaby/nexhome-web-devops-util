@@ -78,18 +78,22 @@ export const getTimeStamp = (): string => {
  * 生成 docker-compose.yml
  * @param dockerImageName docker 镜像名称
  * @param deployPort 部署的端口号
+ * @param containerName 部署的容器名称，可使用 appName 作为容器名称
  * @returns {Promise<string>} docker-compose.yml文件内容字符串
  */
 export const generateDockerComposeStr = (
   dockerImageName: string,
-  deployPort: number
+  deployPort: number,
+  containerName: string
 ): string => {
   return `
   version: '3'
   services:
     web-service:
-      image: ${dockerImageName}
+      image: '${dockerImageName}'
       restart: unless-stopped
+      container_name: '${containerName}'
+      network_mode: 'bridge'
       ports: 
         - ${deployPort}:80`;
 };

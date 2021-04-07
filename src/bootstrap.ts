@@ -38,7 +38,11 @@ export const bootstrap = async (config: BuildConfig): Promise<string> => {
 
   await loginAndPushDockerImage(dockerAccountInfo, dockerImageName);
 
-  const dcStr = generateDockerComposeStr(dockerImageName, deployedPort);
+  const dcStr = generateDockerComposeStr(
+    dockerImageName,
+    deployedPort,
+    appName
+  );
   const dockerComposeFileName = `${appName}/${env}/docker-compose.yml`;
   await uploadToQiniu(dcStr, qiniuAccountInfo, dockerComposeFileName);
   const url = `https://data.silkprint.v-ju.com.cn/${dockerComposeFileName}?hash=${Date.now()}`;

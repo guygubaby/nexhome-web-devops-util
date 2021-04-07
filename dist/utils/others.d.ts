@@ -35,9 +35,10 @@ export declare const getTimeStamp: () => string;
  * 生成 docker-compose.yml
  * @param dockerImageName docker 镜像名称
  * @param deployPort 部署的端口号
+ * @param containerName 部署的容器名称，可使用 appName 作为容器名称
  * @returns {Promise<string>} docker-compose.yml文件内容字符串
  */
-export declare const generateDockerComposeStr: (dockerImageName: string, deployPort: number) => string;
+export declare const generateDockerComposeStr: (dockerImageName: string, deployPort: number, containerName: string) => string;
 /**
  * 上传到七牛上
  * @param dockerComposeStr docker-compose文件内容
