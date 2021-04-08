@@ -1,21 +1,12 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.runAppLocally = exports.bootstrap = void 0;
-__exportStar(require("./utils"), exports);
-__exportStar(require("./utils/constants"), exports);
-__exportStar(require("./utils/types"), exports);
-__exportStar(require("./utils/others"), exports);
+__export(require("./utils"));
+__export(require("./utils/constants"));
+__export(require("./utils/others"));
 var bootstrap_1 = require("./bootstrap");
-Object.defineProperty(exports, "bootstrap", { enumerable: true, get: function () { return bootstrap_1.bootstrap; } });
+exports.bootstrap = bootstrap_1.bootstrap;
 var run_locally_1 = require("./run-locally");
-Object.defineProperty(exports, "runAppLocally", { enumerable: true, get: function () { return run_locally_1.runLocally; } });
+exports.runAppLocally = run_locally_1.runLocally;

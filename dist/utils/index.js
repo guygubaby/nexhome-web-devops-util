@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.log = exports.loginAndPushDockerImage = exports.packAndBuildDockerImage = exports.runLocally = exports.generateDockerTag = void 0;
 const constants_1 = require("./constants");
 const others_1 = require("./others");
 /**
@@ -8,7 +7,7 @@ const others_1 = require("./others");
  * @param pkg 当前项目的 package.json 文件
  * @returns
  */
-const generateDockerTag = (pkg) => {
+exports.generateDockerTag = (pkg) => {
     const { version } = pkg;
     let { GIT_COMMIT } = process.env;
     GIT_COMMIT = GIT_COMMIT || 'GIT_COMMIT';
@@ -17,13 +16,12 @@ const generateDockerTag = (pkg) => {
     const tag = tags.join('-');
     return tag;
 };
-exports.generateDockerTag = generateDockerTag;
 /**
  * 本地运行
  * @param port 本地运行 的端口号
  * @returns
  */
-const runLocally = (port, dockerImageName, dockerContainerName) => {
+exports.runLocally = (port, dockerImageName, dockerContainerName) => {
     const scripts = `
     docker stop ${dockerContainerName}
     sleep 3
@@ -32,7 +30,6 @@ const runLocally = (port, dockerImageName, dockerContainerName) => {
   `;
     return others_1.runShell(scripts);
 };
-exports.runLocally = runLocally;
 /**
  * 打包 前端资源 ，并且打包 docker镜像
  * @param dockerImageName 当前环境 的 docker 镜像名称
@@ -40,7 +37,7 @@ exports.runLocally = runLocally;
  * @param packCommand 当前环境 的 打包命令
  * @returns
  */
-const packAndBuildDockerImage = (dockerImageName, dockerFileName, packCommand = 'yarn build') => {
+exports.packAndBuildDockerImage = (dockerImageName, dockerFileName, packCommand = 'yarn build') => {
     const scripts = `
     yarn config set registry https://registry.npm.taobao.org -g
     yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass -g
@@ -51,13 +48,12 @@ const packAndBuildDockerImage = (dockerImageName, dockerFileName, packCommand = 
     `;
     return others_1.runShell(scripts);
 };
-exports.packAndBuildDockerImage = packAndBuildDockerImage;
 /**
  * 登录、推送镜像,设置当前 tag 环境变量 DOCKER_TAG_LABEL=’tag-xxxx‘ > env-file
  * @param account docker 账号信息
  * @returns
  */
-const loginAndPushDockerImage = (account, dockerImageName) => {
+exports.loginAndPushDockerImage = (account, dockerImageName) => {
     /**
      * 1. login to docker hub (or any other hub)
      * 2. push docker image
@@ -83,10 +79,8 @@ const loginAndPushDockerImage = (account, dockerImageName) => {
   `;
     return others_1.runShell(scripts);
 };
-exports.loginAndPushDockerImage = loginAndPushDockerImage;
-const log = (...args) => {
+exports.log = (...args) => {
     console.log(others_1.repeatDash(10));
     console.log(...args);
     console.log(others_1.repeatDash(10));
 };
-exports.log = log;

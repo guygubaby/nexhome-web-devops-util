@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bootstrap = void 0;
 const utils_1 = require("./utils");
 const others_1 = require("./utils/others");
 /**
@@ -14,7 +13,7 @@ const others_1 = require("./utils/others");
  * @param config 打包的配置信息
  * @return docker-compose.yml 链接（用于部署）
  */
-const bootstrap = async (config) => {
+exports.bootstrap = async (config) => {
     const { env, appName, version, buildCommand, dockerfile, dockerAccountInfo, deployedPort, qiniuAccountInfo, dockerHubPrefix, } = config;
     const tag = utils_1.generateDockerTag({ name: appName, version });
     const dockerImageName = `${dockerHubPrefix}${appName}-${env}:${tag}`;
@@ -28,4 +27,3 @@ const bootstrap = async (config) => {
     utils_1.log(url);
     return url;
 };
-exports.bootstrap = bootstrap;

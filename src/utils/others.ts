@@ -71,7 +71,7 @@ export const runShell = (command: string): Promise<void> => {
 };
 
 export const getTimeStamp = (): string => {
-  return dayjs(new Date()).add(8,'hours').format('YYYYMMDD');
+  return dayjs(new Date()).add(8,'hour').format('YYYYMMDD');
 };
 
 /**

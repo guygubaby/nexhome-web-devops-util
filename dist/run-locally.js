@@ -1,11 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.runLocally = void 0;
 const utils_1 = require("./utils");
 /**
  *  @param config 本地运行的配置信息
  */
-const runLocally = async (config) => {
+exports.runLocally = async (config) => {
     const { env, appName, version, buildCommand, dockerfile, deployedPort, dockerHubPrefix, containerName, } = config;
     const tag = utils_1.generateDockerTag({ name: appName, version });
     const dockerImageName = `${dockerHubPrefix}${appName}-${env}:${tag}`;
@@ -13,4 +12,3 @@ const runLocally = async (config) => {
     await utils_1.packAndBuildDockerImage(dockerImageName, dockerfile, buildCommand);
     await utils_1.runLocally(deployedPort, dockerImageName, containerName);
 };
-exports.runLocally = runLocally;
