@@ -2,7 +2,7 @@
 
 ## brief intro
 
-这是 `nexhome` 用于 `jenkins(CI/CD)` 打包的工具库
+这是 `nexhome` 用于 `jenkins(CI/CD)` and `gitlab-ci` 打包的工具库
 
 ## install
 
@@ -84,7 +84,8 @@ const run = async () => {
     dockerAccountInfo,
     qiniuAccountInfo,
     deployedPort: 8080,
-    dockerHubPrefix
+    dockerHubPrefix,
+    cicdType: 'jenkins' // or 'gitlab-ci'
   }
 
   bootstrap(config)

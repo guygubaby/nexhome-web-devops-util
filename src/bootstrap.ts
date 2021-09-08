@@ -29,8 +29,10 @@ export const bootstrap = async (config: BuildConfig): Promise<string> => {
     deployedPort,
     qiniuAccountInfo,
     dockerHubPrefix,
+    cicdType = 'jenkins'
   } = config;
-  const tag = generateDockerTag({ name: appName, version });
+
+  const tag = generateDockerTag({ name: appName, version }, cicdType);
   const dockerImageName = `${dockerHubPrefix}${appName}-${env}:${tag}`;
   log(dockerImageName);
 

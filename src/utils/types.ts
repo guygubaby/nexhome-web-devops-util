@@ -4,6 +4,8 @@ export interface DockerInfo {
   dockerContainerName: string;
 }
 
+export type CICD_TYPE = 'jenkins' | 'gitlab-ci'
+
 export type EnvName = 'dev' | 'test' | 'prod';
 
 export interface PkgType {
@@ -43,6 +45,7 @@ export interface BuildConfig {
   deployedPort: number;
   qiniuAccountInfo: QiniuAccountInfo;
   dockerHubPrefix: string;
+  cicdType?: CICD_TYPE
 }
 
 /**

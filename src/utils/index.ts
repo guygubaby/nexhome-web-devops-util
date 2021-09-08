@@ -1,18 +1,18 @@
 import { DOCKER_IMAGE_NAME_LABEL, ENV_FILE_NAME } from './constants';
 import { getTimeStamp, runShell, repeatDash } from './others';
-import { PkgType, DockerAccountType } from './types';
+import { PkgType, DockerAccountType, CICD_TYPE } from './types';
 
 /**
  * 生成 docker tag
  * @param pkg 当前项目的 package.json 文件
  * @returns
  */
-export const generateDockerTag = (pkg: PkgType): string => {
+export const generateDockerTag = (pkg: PkgType, cicdType: CICD_TYPE = 'jenkins'): string => {
   const { version } = pkg;
-  let { GIT_COMMIT } = process.env;
-  GIT_COMMIT = GIT_COMMIT || 'GIT_COMMIT';
+  const prop = cicdType === 'jenkins' ? 'GIT_COMMIT' : 'CI_COMMIT_SHORT_SHA'
+  const { [prop]: sha } = process.env;
   // 版本 - 日期 - 环境名称 - git commit hash
-  const tags: string[] = [version, getTimeStamp(), GIT_COMMIT.substr(0, 8)];
+  const tags: string[] = [version, getTimeStamp(), (sha || 'noopnoop').substr(0, 8)];
   const tag: string = tags.join('-');
   return tag;
 };

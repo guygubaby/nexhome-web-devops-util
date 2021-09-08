@@ -1,11 +1,20 @@
 {
   "name": "nexhome-web-devops-util",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "private": false,
   "files": [
     "dist/*"
   ],
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
   "license": "MIT",
   "maintainers": [
     "bryce"
@@ -19,11 +28,13 @@
     "@types/node": "^14.14.37",
     "dayjs": "^1.10.4",
     "ts-node": "^9.1.1",
+    "tsup": "^4.14.0",
     "typescript": "^4.2.3"
   },
   "scripts": {
+    "prepublishOnly": "yarn build",
     "start": "ts-node src/index.ts",
-    "build": "tsc"
+    "build": "tsup src/index.ts --format cjs,esm --dts --no-splitting"
   },
   "dependencies": {
     "qiniu": "^7.3.2"
