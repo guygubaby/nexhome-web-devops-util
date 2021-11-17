@@ -25,7 +25,7 @@ export interface QiniuAccountInfo {
 
 /**
  * 打包所有需要的配置信息
- * @param env (必须) 环境变量 eg: 'test'
+ * @param env 环境变量 eg: 'test', 可不填
  * @param appName (必须) 应用名称 eg: 'xxx-web-management'
  * @param version (必须) 应用版本 eg: '1.0.1'
  * @param buildCommand (必须) 打包命令 eg: 'yarn build'
@@ -36,7 +36,7 @@ export interface QiniuAccountInfo {
  * @param dockerHubPrefix (必须) docker image name 的前缀，默认值 'registry.cn-shanghai.aliyuncs.com/nexhome/'
  */
 export interface BuildConfig {
-  env: string | EnvName;
+  env?: string | EnvName;
   appName: string;
   version: string;
   buildCommand: string;
@@ -50,7 +50,7 @@ export interface BuildConfig {
 
 /**
  * 本地运行所有需要的配置信息
- * @param env (必须) 环境变量 eg: 'test'
+ * @param env 环境变量 eg: 'test', 可不填
  * @param appName (必须) 应用名称 eg: 'xxx-web-management'
  * @param version (必须) 应用版本 eg: '1.0.1'
  * @param buildCommand (必须) 打包命令 eg: 'yarn build'
@@ -60,7 +60,7 @@ export interface BuildConfig {
  * @param containerName (必须) 本地运行的容器名称
  */
 export interface RunLocallyConfig {
-  env: string | EnvName;
+  env?: string | EnvName;
   appName: string;
   version: string;
   buildCommand: string;

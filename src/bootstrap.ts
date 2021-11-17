@@ -33,8 +33,8 @@ export const bootstrap = async (config: BuildConfig): Promise<string> => {
   } = config;
 
   const tag = generateDockerTag({ name: appName, version }, cicdType);
-  const dockerImageName = `${dockerHubPrefix}${appName}-${env}:${tag}`;
-  log(dockerImageName);
+  const dockerImageName = env ? `${dockerHubPrefix}${appName}-${env}:${tag}` : `${dockerHubPrefix}${appName}:${tag}`
+  log(dockerImageName)
 
   await packAndBuildDockerImage(dockerImageName, dockerfile, buildCommand);
 
@@ -45,7 +45,7 @@ export const bootstrap = async (config: BuildConfig): Promise<string> => {
     deployedPort,
     appName
   );
-  const dockerComposeFileName = `${appName}/${env}/docker-compose.yml`;
+  const dockerComposeFileName = env ? `${appName}/${env}/docker-compose.yml` : `${appName}/docker-compose.yml`
   await uploadToQiniu(dcStr, qiniuAccountInfo, dockerComposeFileName);
   const url = `https://data.silkprint.v-ju.com.cn/${dockerComposeFileName}?hash=${Date.now()}`;
   log(url);

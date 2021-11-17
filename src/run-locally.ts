@@ -22,7 +22,7 @@ export const runLocally = async (config: RunLocallyConfig): Promise<void> => {
   } = config;
 
   const tag = generateDockerTag({ name: appName, version });
-  const dockerImageName = `${dockerHubPrefix}${appName}-${env}:${tag}`;
+  const dockerImageName = env ? `${dockerHubPrefix}${appName}-${env}:${tag}` : `${dockerHubPrefix}${appName}:${tag}`
   log(dockerImageName);
   await packAndBuildDockerImage(dockerImageName, dockerfile, buildCommand);
   await runLocallyFunc(deployedPort, dockerImageName, containerName);
